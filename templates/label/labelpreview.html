@@ -1,0 +1,82 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style type="text/css">
+    page {
+      background-image: url('{% static 'images/etiqueta-macmilian.jpg' %}');
+      background-size: cover;
+      -webkit-print-color-adjust: exact;
+      display: block;
+      margin: 0 auto;
+      {#margin-bottom: 0.5cm;#}
+      box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    }
+    page[size="A4"] {
+      width: 21cm;
+      height: 29.7cm;
+    }
+    page[size="A4"][layout="portrait"] {
+      width: 29.7cm;
+      height: 21cm;
+    }
+    @media print {
+      .printbutton {
+        visibility: hidden;
+        display: none;
+      }
+      body, page {
+        margin: 0;
+        box-shadow: 0;
+        margin-top: -2cm;
+        margin-left: -0.95cm;
+        height:90vh;
+        overflow: hidden;
+      }
+    }
+    #container {
+      width: 21cm;
+      height: 29.7cm;
+      margin: 0;
+    }
+    #content {
+      padding: 115px 100px;
+    }
+    #print-button-div {
+      text-align: center;
+      margin: 0px 30px;
+    }
+    </style>
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+  <page size="A4">
+    <div id="container">
+      <div id="content">
+        <div class="row">
+          {% for etiqueta in etiquetas %}
+          <div class="col-6" style="height: 222px;">
+            <h1 style="text-align: center; font-size: 22px; padding: 20pt 0;">{{ etiqueta.nome }}</h1>
+            <div class="overflow-hidden" style="height: 100px;">
+              <p style="text-align: center; font-size: 14px;">{{ etiqueta.descricao }}</p>
+            </div>
+            <p style="text-align: center; font-size: 12px;">{{ etiqueta.docura }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div id="print-button-div">
+      <input type="button" onClick="window.print()" class="printbutton" value="Imprimir etiquetas"/>
+    </div>
+  </page>
+  </body>
+</html>
