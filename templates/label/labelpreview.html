@@ -64,11 +64,23 @@
         <div class="row">
           {% for etiqueta in etiquetas %}
           <div class="col-6" style="height: 222px;">
-            <h1 style="text-align: center; font-size: 22px; padding: 20pt 0;">{{ etiqueta.nome }}</h1>
-            <div class="overflow-hidden" style="height: 100px;">
-              <p style="text-align: center; font-size: 14px;">{{ etiqueta.descricao }}</p>
+            <div class="overflow-hidden" style="height: 77px;">
+              {%  if etiqueta.nome|length > 25 %}
+                <h1 style="text-align: left; font-size: 18px; padding: 15pt 11pt 0;">{{ etiqueta.nome }}</h1>
+              {% else %}
+                <h1 style="text-align: center; font-size: 22px; padding: 20pt 0;">{{ etiqueta.nome }}</h1>
+              {%  endif %}
             </div>
-            <p style="text-align: center; font-size: 12px;">{{ etiqueta.docura }}</p>
+            <div class="overflow-hidden" style="height: 111px;">
+              <p style="text-align: center; font-size: 14px; line-height: 1.6em;">{{ etiqueta.descricao }}</p>
+            </div>
+            {% if etiqueta.docura == 1 %}
+              <img src="{% static 'images/docura-1-suave.png' %}" width="60px">
+            {% elif etiqueta.docura == 2 %}
+              <img src="{% static 'images/docura-2-media.png' %}" width="60px">
+            {% elif etiqueta.docura == 3 %}
+              <img src="{% static 'images/docura-3-mega.png' %}" width="60px">
+            {% endif %}
           </div>
           {% endfor %}
         </div>
