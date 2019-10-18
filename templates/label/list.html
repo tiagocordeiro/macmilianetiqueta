@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row mb-3">
+    <h1>Folhas de Etiquetas</h1>
+  </div>
+  <div class="row">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Editar</th>
+          <th scope="col">Visualizar</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for folha in folhas %}
+        <tr>
+          <th scope="row">{{ folha.pk }}</th>
+          <td>{{ folha.nome }}</td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="{% url 'label_update' pk=folha.pk %}" role="button">Editar</a>
+          </td>
+          <td>
+            <a class="btn btn-secondary btn-sm" href="{% url 'pdf_preview' pk=folha.pk %}" role="button">Visualizar</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <a class="btn btn-primary" href="{% url 'label_create' %}" role="button">Novo</a>
+  </div>
+</div>
+{% endblock %}
