@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script><script>
+  $(document).ready(function(){
+      $("#add-item").click(function(ev) {
+          ev.preventDefault();
+          var count = $('#nota').children().length;
+          var tmplMarkup = $("#item-nota").html();
+          var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+          $("div#nota").append(compiledTmpl);
+          // update form count
+          $('#id_product-TOTAL_FORMS').attr('value', count + 1);
+          // update css
+          $('.input-group')[count].childNodes[1].className = 'col-lg-6 col-md-12 col-sm-12';
+          $('.input-group')[count].childNodes[3].className = 'col-lg-2 col-md-5 col-sm-5';
+          $('.input-group')[count].childNodes[5].className = 'col-lg-2 col-md-5 col-sm-5';
+          $('.input-group')[count].childNodes[7].className = 'col-lg-2 col-md-2 col-sm-2';
+          // Ajusta Checkbox
+          $('.input-group')[count].childNodes[7].childNodes[1].childNodes[1].childNodes[1].className = 'form-checkbox';
+          var html = $('label[for="id_product-' + count + '-DELETE"]').html().replace('Apagar','<span class="form-check-label">Apagar</span>');
+          $('label[for="id_product-' + count + '-DELETE"]').html(html);
+      });
+  });
+</script>
+<div class="container mt-5 mb-5">
+  <div class="row mb-3">
+    <h1>Nova etiqueta</h1>
+  </div>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    {{ formset.management_form|crispy }}
+
+    <div id="nota" class="mb-5 mt-5">
+      {% for etiqueta in formset %}
+          <div id="item-{{ forloop.counter0 }}" class="row form-row mb-3">
+              <div class="input-group">
+                  {{ etiqueta.id }}
+                  <div class="col-lg-6 col-md-12 col-sm-12">
+                      {{ etiqueta.nome|as_crispy_field }}
+                  </div>
+                  <div class="col-lg-2 col-md-5 col-sm-5">
+                      {{ etiqueta.descricao|as_crispy_field }}
+                  </div>
+                  <div class="col-lg-2 col-md-5 col-sm-5">
+                      {{ etiqueta.docura|as_crispy_field }}
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2" style="margin: 42px 0 0 0;">
+                      {{ etiqueta.DELETE|as_crispy_field }}
+                  </div>
+              </div>
+          </div>
+      {% endfor %}
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar Item</a>
+
+            <a href="{% url 'label_list' %}" class="btn btn-warning pull-right"><i class="fa fa-times"></i> Cancelar</a>
+            <button class="btn btn-rounded btn-success" value="Save"><i class="fa fa-floppy-o"></i> Salvar</button>
+
+        </div>
+    </div>
+  </form>
+
+  <script type="text/html" id="item-nota">
+      <div id="item-__prefix__" style="margin-top: 10px" class="row form-row mb-3">
+          <div class="input-group">
+              <div class="col-lg-6 col-md-12 col-sm-12">
+                  {{ formset.empty_form.nome|as_crispy_field }}
+              </div>
+              <div class="col-lg-2 col-md-5 col-sm-5">
+                  {{ formset.empty_form.descricao|as_crispy_field }}
+              </div>
+              <div class="col-lg-2 col-md-5 col-sm-5">
+                  {{ formset.empty_form.docura|as_crispy_field }}
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2" style="margin: 42px 0 0 0;">
+                  {{ formset.empty_form.DELETE|as_crispy_field }}
+              </div>
+          </div>
+      </div>
+  </script>
+
+  <script type="text/html" id="custom-checkbox">
+      <label for="id_product-__prefix__-DELETE" class="form-check">
+        <input type="checkbox" name="product-__prefix__-DELETE" class="checkboxinput form-check-input" id="id_product-__prefix__-DELETE">
+        <span class="form-check-label">Apagar</span>
+      </label>
+  </script>
+
+  <script>
+    // window.onload
+    window.onload = function () {
+      customCheckBox();
+    };
+     function customCheckBox() {
+      var checkbox = document.querySelector("#div_id_product-0-DELETE > label").innerHTML;
+      var res = checkbox.replace(checkbox, '<input type="checkbox" name="product-0-DELETE" class="checkboxinput form-check-input" id="id_product-0-DELETE">\n' +
+          '<span class="form-check-label">Apagar</span>');
+      document.querySelector("#div_id_product-0-DELETE > label").innerHTML = res;
+      document.querySelector("#div_id_product-0-DELETE > label").className='form-check';
+    }
+  </script>
+
+</div>
+{% endblock %}
