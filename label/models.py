@@ -33,7 +33,7 @@ class FolhaEtiquetaItens(models.Model):
     folha_etiqueta = models.ForeignKey(FolhaEtiqueta, on_delete=models.CASCADE)
     nome = models.CharField('Nome produto', max_length=50)
     descricao = models.TextField('Descrição')
-    docura = models.PositiveIntegerField(choices=DOCURA_CHOICES, default=MEDIA)
+    docura = models.PositiveIntegerField('Doçura', choices=DOCURA_CHOICES, default=MEDIA)
 
     class Meta:
         ordering = ('nome',)
