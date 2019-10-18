@@ -19,6 +19,10 @@ EMAIL_PORT=25
 EMAIL_USE_TLS=False
 EMAIL_HOST_USER=
 EMAIL_HOST_PASSWORD=
+# Cloudinary for static e media files
+CLOUDINARY_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 """.strip() % get_random_string(50, chars)
 
 # Writing our configuration file to '.env'
