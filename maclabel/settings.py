@@ -131,6 +131,6 @@ COLLECTFAST_ENABLED = False
 django_heroku.settings(locals())
 
 # Force ssl if run in Heroku
-if 'DYNO' in os.environ:
-    SECURE_SSL_REDIRECT = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# if 'DYNO' in os.environ:
+#     SECURE_SSL_REDIRECT = True
+#     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
