@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.forms.models import inlineformset_factory
 from .models import FolhaEtiqueta, FolhaEtiquetaItens
@@ -6,6 +7,7 @@ from .forms import FolhaEtiquetaForm, FolhaEtiquetaItensForm
 
 
 # Create your views here.
+@login_required
 def label_pdf_preview(request, pk):
     folha_adesivos = get_object_or_404(FolhaEtiqueta, pk=pk)
     folha_adesivo_itens = folha_adesivos.folhaetiquetaitens_set.all()
@@ -16,11 +18,13 @@ def label_pdf_preview(request, pk):
     return render(request, 'label/labelpreview.html', context=context)
 
 
+@login_required
 def label_list(request):
     folhas = FolhaEtiqueta.objects.all()
     return render(request, 'label/list.html', {'folhas': folhas, })
 
 
+@login_required
 def label_create(request):
     folha_etiqueta_form = FolhaEtiqueta()
     folha_itens_formset = inlineformset_factory(
@@ -49,6 +53,7 @@ def label_create(request):
     return render(request, 'label/create.html', context)
 
 
+@login_required
 def label_update(request, pk):
     folha_etiqueta = get_object_or_404(FolhaEtiqueta, pk=pk)
     folha_itens_formset = inlineformset_factory(
