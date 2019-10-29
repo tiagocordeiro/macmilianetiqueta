@@ -11,11 +11,16 @@ from .forms import FolhaEtiquetaForm, FolhaEtiquetaItensForm
 def label_pdf_preview(request, pk):
     folha_adesivos = get_object_or_404(FolhaEtiqueta, pk=pk)
     folha_adesivo_itens = folha_adesivos.folhaetiquetaitens_set.all()
+    if folha_adesivos.modelo == 'BOLOS':
+        folha_adesivo_template = 'label/labelpreviewbolos.html'
+    else:
+        folha_adesivo_template = 'label/labelpreviewlanches.html'
+
     context = {
         'folha': folha_adesivos.nome,
         'etiquetas': folha_adesivo_itens,
     }
-    return render(request, 'label/labelpreview.html', context=context)
+    return render(request, template_name=folha_adesivo_template, context=context)
 
 
 @login_required
