@@ -34,7 +34,7 @@ def label_create(request):
     folha_etiqueta_form = FolhaEtiqueta()
     folha_itens_formset = inlineformset_factory(
         FolhaEtiqueta, FolhaEtiquetaItens, form=FolhaEtiquetaItensForm, extra=0, can_delete=True,
-        min_num=1, max_num=8, validate_min=True, validate_max=True
+        min_num=1, max_num=10, validate_min=True, validate_max=True
     )
 
     if request.method == 'POST':
@@ -63,7 +63,7 @@ def label_update(request, pk):
     folha_etiqueta = get_object_or_404(FolhaEtiqueta, pk=pk)
     folha_itens_formset = inlineformset_factory(
         FolhaEtiqueta, FolhaEtiquetaItens, form=FolhaEtiquetaItensForm, extra=0, can_delete=True,
-        min_num=1, max_num=8, validate_min=True, validate_max=True
+        min_num=1, max_num=10, validate_min=True, validate_max=True
     )
 
     if request.method == 'POST':

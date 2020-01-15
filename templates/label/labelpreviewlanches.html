@@ -11,7 +11,7 @@
 
     <style type="text/css">
     page {
-      background-image: url('{% static 'images/etiqueta-macmilian-lanche-serrilhado.jpg' %}');
+      background-image: url('{% static 'images/etiqueta-macmilian-lanche-serrilhado-10.jpg' %}');
       background-size: cover;
       -webkit-print-color-adjust: exact;
       display: block;
@@ -35,8 +35,8 @@
       body, page {
         margin: 0;
         box-shadow: 0;
-        margin-top: -2cm;
-        margin-left: -0.95cm;
+        {#margin-top: -2cm;#}
+        {#margin-left: -0.95cm;#}
         height:90vh;
         overflow: hidden;
       }
@@ -47,7 +47,7 @@
       margin: 0;
     }
     #content {
-      padding: 115px 100px;
+      padding: 0px 100px;
     }
     #print-button-div {
       text-align: center;
@@ -64,6 +64,7 @@
         <div class="row">
           {% for etiqueta in etiquetas %}
           <div class="col-6" style="height: 222px;">
+{#            <div class="overflow-hidden" style="height: 222px; vertical-align: middle; display: table-cell; background-image: url('{% static 'images/etiqueta-macmilian-lanche-individual.jpg' %}');">#}
             <div class="overflow-hidden" style="height: 222px; vertical-align: middle; display: table-cell;">
               <p style="text-align: center; font-size: 28px; font-weight: 700; line-height: 1.5em; margin-top: 1rem; max-height:190px">{{ etiqueta.descricao }}</p>
             </div>
